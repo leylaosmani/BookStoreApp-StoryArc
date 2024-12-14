@@ -1,0 +1,52 @@
+﻿@model IEnumerable<BookStoreApp.Models.CartItem>
+@using System.Linq
+
+@{
+    ViewBag.Title = "Index";
+}
+
+
+<h2>Book Cart</h2>
+
+<div class="container mt-4">
+    <h2 class="text-center mb-4">Shopping Cart</h2>
+
+    <!-- Cart Table -->
+    <table class="table table-bordered table-striped">
+        <thead class="thead-dark">
+            <tr>
+                <th>Title</th>
+                <th>Price</th>
+                <th>Quantity</th>
+                <th>Total</th>
+                <th>Remove</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Title</td>
+                    <td>$@item.Price</td>
+                    <td>@item.Quantity</td>
+                    <td>$@(item.Price * item.Quantity)</td>
+                    <td>
+                        <a href="@Url.Action("RemoveFromCart", "ShoppingCart", new { id = item.Id })" class="btn btn-danger btn-sm">Remove Book</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="3" class="text-right"><strong>Total</strong></td>
+                <td><strong>$@Model.Sum(x => x.Price * x.Quantity)</strong></td>
+                <td></td>
+            </tr>
+        </tfoot>
+    </table>
+
+    <!-- Checkout Button -->
+    <div class="text-center mt-4">
+        <a href="@Url.Action("Checkout", "ShoppingCart")" class="btn btn-success btn-lg">Proceed to Checkout</a>
+    </div>
+</div>

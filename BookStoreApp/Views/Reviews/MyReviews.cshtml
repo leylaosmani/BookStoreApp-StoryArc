@@ -1,0 +1,30 @@
+﻿@model List<BookStoreApp.Models.Review>
+
+@{
+    ViewBag.Title = "My Reviews";
+}
+
+<h2>My Reviews</h2>
+
+@if (!Model.Any())
+{
+<p>No reviews submitted yet.</p>
+}
+else
+{
+<ul>
+    @foreach (var review in Model)
+    {
+        <li>
+            <strong>@review.BookTitle</strong>
+            <br/>
+            by @review.ReviewerName on @review.ReviewDate.ToShortDateString()
+            <br />
+            Rating: @review.Rating
+            <br />
+            @review.ReviewText
+        </li>
+    }
+</ul>
+}
+

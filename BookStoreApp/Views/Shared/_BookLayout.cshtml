@@ -1,0 +1,77 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - Story Arc Bookstore</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryval")
+
+    <style>
+        .book-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .book-card {
+            border: 2px solid navy;
+            border-radius: 10px;
+            padding: 15px;
+            background-color: white;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg" style="background-color: aliceblue;">
+        <div class="container">
+            @Html.ActionLink("Story Arc", "Index", "Home", null, new { @class = "navbar-brand" })
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav mr-auto">
+                    <li>@Html.ActionLink("Home", "Index", "Home", new { area = "" }, new { @class = "nav-link" })</li>
+                    <li>@Html.ActionLink("Search for Books", "Index", "Book", null, new { @class = "nav-link" })</li>
+                    <li>@Html.ActionLink("Genres", "Index", "Genre", null, new { @class = "nav-link" })</li>
+                    <li>@Html.ActionLink("Ratings", "Ratings", "Reviews", null, new { @class = "nav-link" })</li>
+                    <li>@Html.ActionLink("My Reviews", "MyReviews", "Reviews", null, new { @class = "nav-link" })</li>
+                    <li>@Html.ActionLink("Upload A Book", "Create", "FavoriteBooks", null, new { @class = "nav-link" })</li>
+                    <li>@Html.ActionLink("Buy a Book", "Index", "BuyBooks", null, new { @class = "nav-link" })</li>
+                    <li>@Html.ActionLink("View Cart", "Index", "ShoppingCart", null, new { @class = "nav-link" })</li>
+                   
+                </ul>
+                <ul class="navbar-nav">
+                    @if (Session["Username"] != null)
+                    {
+                        <li class="nav-item"><a href="@Url.Action("Logout", "User")" class="nav-link">Logout</a></li>
+                    }
+                    else
+                    {
+                        <li class="nav-item"><a href="@Url.Action("Login", "User")" class="nav-link">Login</a></li>
+                        <li class="nav-item"><a href="@Url.Action("Register", "User")" class="nav-link">Sign Up</a></li>
+                    }
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        @RenderBody()
+    </div>
+
+    <footer class="text-center py-3">
+        <p>&copy; @DateTime.Now.Year - Story Arc Bookstore. All rights reserved.</p>
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    @RenderSection("scripts", required: false)
+</body>
+</html>
+

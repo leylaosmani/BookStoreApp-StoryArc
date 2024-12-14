@@ -1,0 +1,25 @@
+﻿@model IEnumerable<BookStoreApp.Models.Booktbl>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<div class="container mt-4">
+    <h2 class="text-center mb-4">Buy Books</h2>
+    <div class="row">
+        @foreach (var book in Model)
+        {
+            <div class="col-md-4 mb-4">
+                <div class="card h-100 shadow-sm">
+                    <div class="card-body">
+                        <h5 class="card-title">@book.Title</h5>
+                        <h6 class="card-subtitle mb-2 text-muted">by @book.Author</h6>
+                        <p class="card-text"><strong>Price:</strong> $@book.Price</p>
+                        <a href="@Url.Action("AddToCart", "ShoppingCart", new { id = book.Id })"
+                           class="btn btn-primary btn-block">Add to Cart</a>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>

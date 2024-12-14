@@ -1,0 +1,90 @@
+﻿@model BookStoreApp.Models.CheckoutViewModel
+@{
+    ViewBag.Title = "Checkout";
+}
+
+<h2>Checkout</h2>
+
+
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success">
+        @TempData["SuccessMessage"]
+    </div>
+}
+
+<div class="container">
+    <h3>Your Cart</h3>
+
+    <!-- Cart Table -->
+    <table class="table table-bordered table-striped">
+        <thead class="thead-dark">
+            <tr>
+                <th>Title</th>
+                <th>Price</th>
+                <th>Quantity</th>
+                <th>Total</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.CartItems)
+            {
+                <tr>
+                    <td>@item.Title</td>
+                    <td>$@item.Price</td>
+                    <td>@item.Quantity</td>
+                    <td>$@(item.Price * item.Quantity)</td>
+                </tr>
+            }
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="3" class="text-right"><strong>Total</strong></td>
+                <td><strong>$@Model.CartItems.Sum(x => x.Price * x.Quantity)</strong></td>
+            </tr>
+        </tfoot>
+    </table>
+
+    <h3>Billing Information</h3>
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-group">
+            <label for="FirstName">First Name</label>
+            @Html.TextBoxFor(m => m.CheckoutModel.FirstName, new { @class = "form-control", required = true })
+        </div>
+
+        <div class="form-group">
+            <label for="LastName">Last Name</label>
+            @Html.TextBoxFor(m => m.CheckoutModel.LastName, new { @class = "form-control", required = true })
+        </div>
+
+        <div class="form-group">
+            <label for="Address">Address</label>
+            @Html.TextBoxFor(m => m.CheckoutModel.Address, new { @class = "form-control", required = true })
+        </div>
+
+        <div class="form-group">
+            <label for="CardNumber">Card Number</label>
+            @Html.TextBoxFor(m => m.CheckoutModel.CardNumber, new { @class = "form-control", required = true, type = "number" })
+        </div>
+
+        <div class="form-group">
+            <label for="ExpiryDate">Expiry Date</label>
+            @Html.TextBoxFor(m => m.CheckoutModel.ExpiryDate, new { @class = "form-control", required = true })
+        </div>
+
+        <div class="form-group">
+            <label for="CVV">CVV</label>
+            @Html.TextBoxFor(m => m.CheckoutModel.CVV, new { @class = "form-control", required = true })
+        </div>
+
+        <div class="form-group">
+            <label for="TotalAmount">Total Amount</label>
+            <input type="text" class="form-control" value="@Model.CartItems.Sum(x => x.Price * x.Quantity)" readonly />
+        </div>
+        <br />
+        <button type="submit" class="btn btn-primary">Complete Purchase</button>
+    }
+</div>

@@ -1,0 +1,72 @@
+﻿@model IEnumerable<BookStoreApp.Models.Genretbl>
+
+@{
+    ViewBag.Title = "Genres We Carry at Story Arc";
+}
+
+<h2>Genres We Carry at Story Arc</h2>
+
+
+
+<div class="row">
+    @foreach (var item in Model)
+    {
+        <div class="col-md-4 mb-4">
+            <!-- Image for the genre -->
+            <img src="@Url.Content("~/Images/" + item.Name.ToLower() + ".jpg")" class="img-fluid mb-3" alt="@item.Name" />
+
+            <div class="card">
+                <div class="card-body">
+                    <!-- Genre Name -->
+                    <h5 class="card-title">@Html.DisplayFor(modelItem => item.Name)</h5>
+
+                    <!-- Link to Genre Details -->
+                    <!--@Html.ActionLink("Details", "Details", new { id = item.Id }, new { @class = "btn btn-info" })-->
+
+                    <!-- Genre Description -->
+                <p class="mt-3">
+                    @if (item.Name == "Fiction")
+                    {
+                        @:Fiction is a literary genre that includes both imaginative and narrative writing, typically revolving around invented stories.
+                    }
+                    @if (item.Name == "Non-Fiction")
+                    {
+                        @:Non-fiction is a genre of writing that is based on real events, facts, and actual people.
+                    }
+                    @if (item.Name == "Science Fiction")
+                    {
+                        @:Science fiction is a genre of speculative fiction involving futuristic concepts, technology, and alternate realities.
+                    }
+                    @if (item.Name == "Romance")
+                    {
+                        @:Romance fiction centers around the romantic relationships of characters, often focusing on love and emotional connections.
+                    }
+                    @if (item.Name == "Fantasy")
+                    {
+                        @:Fantasy fiction typically involves magical elements, mythical creatures, and adventures set in imagined worlds.
+                    }
+                    @if (item.Name == "Horror")
+                    {
+                        @:Horror stories are designed to provoke fear and suspense, often featuring supernatural or unsettling elements.
+                    }
+                    @if (item.Name == "Poetry")
+                    {
+                        @:Poetry is a literary genre that uses rhythm and imagery to evoke emotions and convey deep meanings.
+                    }
+                    @if (item.Name == "Children's")
+                    {
+                        @:Children''s genre contains whimsical tales crafted to entertain, educate, and inspire young readers.
+                    }
+                    @if (item.Name == "Historical Fiction")
+                    {
+                        @:Historical Fiction genre has narratives that reimagine historical events and eras with a blend of fact and fiction.
+                    }
+                </p>
+
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+

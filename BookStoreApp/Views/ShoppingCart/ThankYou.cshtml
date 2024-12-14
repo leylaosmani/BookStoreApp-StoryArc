@@ -1,0 +1,14 @@
+﻿@{
+    ViewBag.Title = "Thank You";
+}
+
+<h2>Thank You for Your Purchase!</h2>
+
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success">
+        @TempData["SuccessMessage"]
+    </div>
+}
+
+<p>Your order has been processed successfully. We appreciate your business!</p>
